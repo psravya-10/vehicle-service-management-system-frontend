@@ -1,0 +1,69 @@
+<nav class="navbar">
+    <div class="navbar-container">
+        <div class="nav-left">
+            <a class="navbar-brand" routerLink="/">VSMS</a>
+            <ul class="nav-links">
+                <li><a routerLink="/">Home</a></li>
+            </ul>
+        </div>
+        <div class="nav-buttons">
+            <button class="btn-login" routerLink="/login">Login</button>
+            <button class="btn-register" routerLink="/register">Register</button>
+        </div>
+    </div>
+</nav>
+
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>Vehicle Service Management System</h1>
+        <p>Book your vehicle service online and track status in real-time</p>
+        <button class="btn-primary" routerLink="/register">Book Service Now</button>
+    </div>
+</section>
+
+
+<section class="features">
+    <h2>Our Features</h2>
+    <div class="features-list">
+        <div class="feature-card">
+            <i class="bi bi-car-front"></i>
+            <h4>Vehicle Servicing</h4>
+            <p>Complete vehicle maintenance and repair services</p>
+        </div>
+        <div class="feature-card">
+            <i class="bi bi-gear"></i>
+            <h4>Spare Parts</h4>
+            <p>Genuine spare parts inventory management</p>
+        </div>
+        <div class="feature-card">
+            <i class="bi bi-bar-chart-steps"></i>
+            <h4>Service Tracking</h4>
+            <p>Track your service request status in real-time</p>
+        </div>
+        <div class="feature-card">
+            <i class="bi bi-receipt"></i>
+            <h4>Billing & Invoices</h4>
+            <p>Easy billing and payment management</p>
+        </div>
+    </div>
+</section>
+
+
+<section class="staff">
+    <h2>Are you a Service Provider?</h2>
+    <p>Join our team as a technician or manager</p>
+    <div class="staff-buttons">
+        <a class="btn-outline" routerLink="/register" [queryParams]="{role: 'TECHNICIAN'}">
+            <i class="bi bi-wrench"></i> Join as Technician
+        </a>
+        <a class="btn-outline" routerLink="/register" [queryParams]="{role: 'MANAGER'}">
+            <i class="bi bi-person-badge"></i> Join as Manager
+        </a>
+    </div>
+</section>
+
+
+<footer class="footer">
+    <p>&copy; 2026 Vehicle Service Management System</p>
+</footer>
