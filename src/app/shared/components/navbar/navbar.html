@@ -1,0 +1,15 @@
+<nav class="navbar">
+    <span class="nav-title">{{ title }}</span>
+
+    <div class="profile-section">
+        <button class="profile-button" (click)="toggleDropdown()">
+            <i class="bi bi-person-circle"></i> Profile
+        </button>
+
+        <div class="dropdown" *ngIf="showDropdown">
+            <a>My Profile</a>
+            <a>Change Password</a>
+            <a (click)="logout()">Logout</a>
+        </div>
+    </div>
+</nav>
