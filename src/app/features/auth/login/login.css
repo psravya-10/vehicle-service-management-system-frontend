@@ -1,0 +1,105 @@
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5f5f5;
+    padding: 20px;
+}
+
+.login-card {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-card h2 {
+    margin: 0 0 8px 0;
+    color: #333;
+    font-size: 1.8rem;
+}
+
+.subtitle {
+    color: #666;
+    margin: 0 0 30px 0;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #e65100;
+}
+
+.error {
+    color: #d32f2f;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: block;
+}
+
+.error-message {
+    background: #ffebee;
+    color: #d32f2f;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 14px;
+    background: #e65100;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background: #bf360c;
+}
+
+.submit-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+}
+
+.register-link a {
+    color: #e65100;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}

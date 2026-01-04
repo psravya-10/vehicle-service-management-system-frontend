@@ -1,0 +1,66 @@
+<div class="register-container">
+    <div class="register-card">
+        <h2>{{ getTitle() }}</h2>
+        <p class="subtitle">Fill in your details to register</p>
+
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" formControlName="name" placeholder="Enter your full name">
+                <span class="error" *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid">
+                    Name is required
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" formControlName="email" placeholder="Enter your email">
+                <span class="error" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+                    Please enter a valid email
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" formControlName="password" placeholder="Enter your password">
+                <span class="error"
+                    *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
+                    Password must be at least 6 characters
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" formControlName="phone" placeholder="Enter your phone number">
+                <span class="error" *ngIf="registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid">
+                    Phone number is required
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label for="pincode">Pincode</label>
+                <input type="text" id="pincode" formControlName="pincode" placeholder="Enter your pincode">
+                <span class="error"
+                    *ngIf="registerForm.get('pincode')?.touched && registerForm.get('pincode')?.invalid">
+                    Pincode is required
+                </span>
+            </div>
+
+            <div class="error-message" *ngIf="errorMessage">
+                {{ errorMessage }}
+            </div>
+
+            <div class="success-message" *ngIf="successMessage">
+                {{ successMessage }}
+            </div>
+
+            <button type="submit" class="submit-button" [disabled]="isLoading">
+                {{ isLoading ? 'Registering...' : 'Register' }}
+            </button>
+        </form>
+
+        <p class="login-link">
+            Already have an account? <a routerLink="/login">Login here</a>
+        </p>
+    </div>
+</div>
