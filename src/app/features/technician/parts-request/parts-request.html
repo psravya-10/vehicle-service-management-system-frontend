@@ -1,0 +1,51 @@
+<h2>Request Parts</h2>
+
+<div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>
+<div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+<div class="request-form">
+    <div class="form-group">
+        <label for="task">Select Task</label>
+        <select id="task" [(ngModel)]="selectedTaskId">
+            <option value="">-- Select a task --</option>
+            <option *ngFor="let task of tasks" [value]="task.id">
+                {{ task.issueDescription }} ({{ task.status }})
+            </option>
+        </select>
+        <span class="hint" *ngIf="tasks.length === 0">No active tasks available</span>
+    </div>
+
+    <div class="form-group">
+        <label for="part">Select Part</label>
+        <select id="part" [(ngModel)]="selectedPartId">
+            <option value="">-- Select a part --</option>
+            <option *ngFor="let part of parts" [value]="part.id">
+                {{ part.name }} ({{ part.category }}) - Available: {{ part.availableQuantity }}
+            </option>
+        </select>
+    </div>
+
+    <div class="form-group" *ngIf="getSelectedPart()">
+        <div class="part-details">
+            <span>Unit Price: ₹{{ getSelectedPart().unitPrice }}</span>
+            <span *ngIf="quantity > 0">Total: ₹{{ getSelectedPart().unitPrice * quantity }}</span>
+        </div>
+        <div class="low-stock-warning"
+            *ngIf="getSelectedPart().availableQuantity <= getSelectedPart().lowStockThreshold">
+            Low stock warning: Only {{ getSelectedPart().availableQuantity }} units available in inventory
+        </div>
+        <div class="insufficient-stock" *ngIf="quantity > getSelectedPart().availableQuantity">
+            Insufficient stock: Requested {{ quantity }} but only {{ getSelectedPart().availableQuantity }} available
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" [(ngModel)]="quantity" min="1" max="100">
+    </div>
+
+    <button class="btn-primary" (click)="requestPart()"
+        [disabled]="isLoading || (getSelectedPart() && quantity > getSelectedPart().availableQuantity)">
+        {{ isLoading ? 'Requesting...' : 'Request Part' }}
+    </button>
+</div>
