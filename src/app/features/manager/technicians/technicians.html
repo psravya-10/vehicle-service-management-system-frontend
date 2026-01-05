@@ -1,0 +1,26 @@
+<div class="header">
+    <h2>Technicians</h2>
+    <div class="filter-group">
+        <label for="filter">Filter:</label>
+        <select id="filter" [(ngModel)]="selectedFilter" (change)="onFilterChange()">
+            <option value="ALL">All</option>
+            <option value="AVAILABLE">Available</option>
+            <option value="BUSY">Busy</option>
+        </select>
+    </div>
+</div>
+
+<div class="card-list">
+    <div *ngFor="let tech of filteredTechnicians" class="card">
+        <div class="card-info">
+            <strong>{{ tech.name }}</strong>
+            <span>ID: {{ tech.id }}</span>
+            <span>{{ tech.email }}</span>
+        </div>
+        <div class="card-stats">
+            <span class="status" [ngClass]="tech.availability?.toLowerCase()">{{ tech.availability }}</span>
+            <span class="workload">Active Tasks: {{ getWorkload(tech.id) }}</span>
+        </div>
+    </div>
+    <p *ngIf="filteredTechnicians.length === 0" class="no-data">No technicians found.</p>
+</div>
