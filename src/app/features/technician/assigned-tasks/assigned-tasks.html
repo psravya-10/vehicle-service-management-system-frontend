@@ -1,0 +1,29 @@
+<div class="header">
+    <h2>My Assigned Tasks</h2>
+    <div class="filter-group">
+        <label for="filter">Filter:</label>
+        <select id="filter" [(ngModel)]="selectedFilter" (change)="onFilterChange()">
+            <option value="ALL">All</option>
+            <option value="ASSIGNED">Assigned</option>
+            <option value="IN_PROGRESS">In Progress</option>
+            <option value="COMPLETED">Completed</option>
+            <option value="CLOSED">Closed</option>
+        </select>
+    </div>
+</div>
+
+<div class="card-list">
+    <div *ngFor="let task of filteredTasks" class="card">
+        <div class="card-info">
+            <strong>{{ task.issueDescription }}</strong>
+            <span>Vehicle: {{ task.vehicleId }}</span>
+            <span>Priority: {{ task.priority }}</span>
+            <span *ngIf="task.remarks">Remarks: {{ task.remarks }}</span>
+        </div>
+        <div class="card-status">
+            <span class="status" [ngClass]="task.status?.toLowerCase()">{{ task.status }}</span>
+        </div>
+    </div>
+
+    <p *ngIf="filteredTasks.length === 0" class="no-data">No tasks found.</p>
+</div>
