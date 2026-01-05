@@ -1,0 +1,44 @@
+<h2>Active Tasks</h2>
+
+<div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>
+<div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+<div class="card-list" *ngIf="!selectedTask">
+    <div *ngFor="let task of tasks" class="card" (click)="selectTask(task)">
+        <div class="card-info">
+            <strong>{{ task.issueDescription }}</strong>
+            <span>Vehicle: {{ task.vehicleId }}</span>
+            <span>Priority: {{ task.priority }}</span>
+        </div>
+        <div class="card-actions">
+            <span class="status" [ngClass]="task.status?.toLowerCase()">{{ task.status }}</span>
+            <button class="btn-secondary">Update Status</button>
+        </div>
+    </div>
+
+    <p *ngIf="tasks.length === 0" class="no-data">No active tasks.</p>
+</div>
+
+<div class="edit-panel" *ngIf="selectedTask">
+    <h3>Update Task Status</h3>
+    <p><strong>{{ selectedTask.issueDescription }}</strong></p>
+
+    <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" [(ngModel)]="selectedStatus">
+            <option value="ASSIGNED">ASSIGNED</option>
+            <option value="IN_PROGRESS">IN_PROGRESS</option>
+            <option value="COMPLETED">COMPLETED</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="remarks">Remarks</label>
+        <textarea id="remarks" [(ngModel)]="remarks" rows="3" placeholder="Add remarks..."></textarea>
+    </div>
+
+    <div class="button-group">
+        <button class="btn-primary" (click)="updateStatus()">Save Changes</button>
+        <button class="btn-secondary" (click)="cancelEdit()">Cancel</button>
+    </div>
+</div>
