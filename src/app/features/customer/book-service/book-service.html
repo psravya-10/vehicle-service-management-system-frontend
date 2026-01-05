@@ -1,0 +1,36 @@
+<h2>Book a Service</h2>
+
+<div class="book-form">
+    <div class="form-group">
+        <label>Select Vehicle</label>
+        <select [(ngModel)]="serviceRequest.vehicleId">
+            <option value="">-- Select Vehicle --</option>
+            <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
+                {{ vehicle.registrationNumber }} - {{ vehicle.brand }} {{ vehicle.model }}
+            </option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Issue Description</label>
+        <textarea [(ngModel)]="serviceRequest.issueDescription"
+            placeholder="Describe the issue with your vehicle"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Priority</label>
+        <select [(ngModel)]="serviceRequest.priority">
+            <option value="NORMAL">Normal</option>
+            <option value="URGENT">Urgent</option>
+        </select>
+    </div>
+
+    <button class="submit-button" (click)="submitRequest()">Submit Request</button>
+
+    <div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>
+    <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+</div>
+
+<p *ngIf="vehicles.length === 0" class="no-vehicles">
+    No vehicles found. Please add a vehicle first in "My Vehicles" tab.
+</p>
