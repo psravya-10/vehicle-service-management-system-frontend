@@ -13,6 +13,11 @@ import { MyVehicles } from './features/customer/my-vehicles/my-vehicles';
 import { AssignedTasks } from './features/technician/assigned-tasks/assigned-tasks';
 import { ActiveTasks } from './features/technician/active-tasks/active-tasks';
 import { PartsRequest } from './features/technician/parts-request/parts-request';
+import { ServiceRequests } from './features/manager/service-requests/service-requests';
+import { Technicians } from './features/manager/technicians/technicians';
+import { ServiceBays } from './features/manager/service-bays/service-bays';
+import { PartsInventory } from './features/manager/parts-inventory/parts-inventory';
+import { PartRequests } from './features/manager/part-requests/part-requests';
 
 export const routes: Routes = [
     { path: '', component: Home },
@@ -35,7 +40,15 @@ export const routes: Routes = [
             { path: 'parts-request', component: PartsRequest }
         ]
     },
-    { path: 'manager/dashboard', component: ManagerDashboard, canActivate: [authGuard] },
+    {
+        path: 'manager/dashboard', component: ManagerDashboard, canActivate: [authGuard], children: [
+            { path: '', redirectTo: 'service-requests', pathMatch: 'full' },
+            { path: 'service-requests', component: ServiceRequests },
+            { path: 'technicians', component: Technicians },
+            { path: 'service-bays', component: ServiceBays },
+            { path: 'parts-inventory', component: PartsInventory },
+            { path: 'part-requests', component: PartRequests }
+        ]
+    },
     { path: 'admin/dashboard', component: AdminDashboard, canActivate: [authGuard] }
 ];
-
