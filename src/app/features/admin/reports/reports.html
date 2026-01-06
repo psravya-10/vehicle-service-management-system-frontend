@@ -1,0 +1,84 @@
+<div class="header">
+    <h2>Reports & Analytics</h2>
+</div>
+
+<div class="loading" *ngIf="isLoading">Loading reports...</div>
+
+<div class="reports-grid" *ngIf="!isLoading">
+    <!-- Service Requests Overview -->
+    <div class="report-card">
+        <h3>Service Requests</h3>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-value">{{ totalRequests }}</span>
+                <span class="stat-label">Total</span>
+            </div>
+            <div class="stat-item pending">
+                <span class="stat-value">{{ pendingRequests }}</span>
+                <span class="stat-label">Pending</span>
+            </div>
+            <div class="stat-item in-progress">
+                <span class="stat-value">{{ inProgressRequests }}</span>
+                <span class="stat-label">In Progress</span>
+            </div>
+            <div class="stat-item completed">
+                <span class="stat-value">{{ completedRequests }}</span>
+                <span class="stat-label">Completed</span>
+            </div>
+        </div>
+        <div class="chart-placeholder">
+            <div class="bar-chart">
+                <div class="bar pending" [style.width.%]="getPercentage(pendingRequests, totalRequests)">
+                    <span *ngIf="pendingRequests > 0">{{ pendingRequests }}</span>
+                </div>
+                <div class="bar in-progress" [style.width.%]="getPercentage(inProgressRequests, totalRequests)">
+                    <span *ngIf="inProgressRequests > 0">{{ inProgressRequests }}</span>
+                </div>
+                <div class="bar completed" [style.width.%]="getPercentage(completedRequests, totalRequests)">
+                    <span *ngIf="completedRequests > 0">{{ completedRequests }}</span>
+                </div>
+            </div>
+            <div class="chart-legend">
+                <span class="legend-item"><span class="dot pending"></span> Pending</span>
+                <span class="legend-item"><span class="dot in-progress"></span> In Progress</span>
+                <span class="legend-item"><span class="dot completed"></span> Completed</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Monthly Revenue with Bar Chart -->
+    <div class="report-card">
+        <h3>This Month's Revenue</h3>
+        <div class="revenue-display">
+            <span class="currency">₹</span>
+            <span class="amount">{{ totalRevenue | number:'1.2-2' }}</span>
+        </div>
+
+        <!-- Revenue Bar Chart -->
+        <div class="revenue-bar-chart">
+            <div class="revenue-bar-container">
+                <div class="revenue-bar paid" [style.height.px]="getRevenueBarHeight(paidRevenue)">
+                    <span class="bar-value">₹{{ paidRevenue | number:'1.0-0' }}</span>
+                </div>
+                <span class="bar-label">Paid</span>
+            </div>
+            <div class="revenue-bar-container">
+                <div class="revenue-bar unpaid" [style.height.px]="getRevenueBarHeight(unpaidRevenue)">
+                    <span class="bar-value">₹{{ unpaidRevenue | number:'1.0-0' }}</span>
+                </div>
+                <span class="bar-label">Unpaid</span>
+            </div>
+        </div>
+
+        <div class="invoice-stats">
+            <div class="invoice-stat paid">
+                <span class="value">{{ paidInvoices }}</span>
+                <span class="label">Paid Services</span>
+            </div>
+            <div class="invoice-stat pending">
+                <span class="value">{{ pendingInvoices }}</span>
+                <span class="label">Unpaid Services</span>
+            </div>
+        </div>
+    </div>
+</div>
