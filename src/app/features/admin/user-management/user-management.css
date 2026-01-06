@@ -1,0 +1,9 @@
+.user-count {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.role-badge.customer {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
