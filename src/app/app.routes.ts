@@ -10,6 +10,7 @@ import { authGuard } from './core/guards/auth-guard';
 import { BookService } from './features/customer/book-service/book-service';
 import { ServiceHistory } from './features/customer/service-history/service-history';
 import { MyVehicles } from './features/customer/my-vehicles/my-vehicles';
+import { MyInvoices } from './features/customer/my-invoices/my-invoices';
 import { AssignedTasks } from './features/technician/assigned-tasks/assigned-tasks';
 import { ActiveTasks } from './features/technician/active-tasks/active-tasks';
 import { PartsRequest } from './features/technician/parts-request/parts-request';
@@ -18,6 +19,10 @@ import { Technicians } from './features/manager/technicians/technicians';
 import { ServiceBays } from './features/manager/service-bays/service-bays';
 import { PartsInventory } from './features/manager/parts-inventory/parts-inventory';
 import { PartRequests } from './features/manager/part-requests/part-requests';
+import { StaffManagement } from './features/admin/staff-management/staff-management';
+import { Reports } from './features/admin/reports/reports';
+import { UserManagement } from './features/admin/user-management/user-management';
+import { Inventory } from './features/admin/inventory/inventory';
 
 export const routes: Routes = [
     { path: '', component: Home },
@@ -29,7 +34,8 @@ export const routes: Routes = [
             { path: '', redirectTo: 'my-vehicles', pathMatch: 'full' },
             { path: 'my-vehicles', component: MyVehicles },
             { path: 'book-service', component: BookService },
-            { path: 'service-history', component: ServiceHistory }
+            { path: 'service-history', component: ServiceHistory },
+            { path: 'my-invoices', component: MyInvoices }
         ]
     },
     {
@@ -50,5 +56,13 @@ export const routes: Routes = [
             { path: 'part-requests', component: PartRequests }
         ]
     },
-    { path: 'admin/dashboard', component: AdminDashboard, canActivate: [authGuard] }
+    {
+        path: 'admin/dashboard', component: AdminDashboard, canActivate: [authGuard], children: [
+            { path: '', redirectTo: 'staff-management', pathMatch: 'full' },
+            { path: 'staff-management', component: StaffManagement },
+            { path: 'reports', component: Reports },
+            { path: 'user-management', component: UserManagement },
+            { path: 'inventory', component: Inventory }
+        ]
+    }
 ];

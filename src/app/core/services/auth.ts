@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
 
   private apiUrl = 'http://localhost:9090/api/auth';
+  private userApiUrl = 'http://localhost:9090/api/users';
 
   constructor(private http: HttpClient) { }
 
@@ -39,6 +40,31 @@ export class AuthService {
     return localStorage.getItem('role');
   }
 
+  saveUserId(userId: string): void {
+    localStorage.setItem('userId', userId);
+  }
+
+  getUserId(): string | null {
+    return localStorage.getItem('userId');
+  }
+
+  getEmail(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      const payload = token.split('.')[1];
+      const decoded = JSON.parse(atob(payload));
+      return decoded.sub; 
+    } catch {
+      return null;
+    }
+  }
+
+  fetchUserIdByEmail(email: string): Observable<string> {
+    return this.http.get(`${this.userApiUrl}/email/${email}/id`, { responseType: 'text' });
+  }
+
   isLoggedIn(): boolean {
     return this.getToken() !== null;
   }
@@ -46,5 +72,6 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    localStorage.removeItem('userId');
   }
 }
