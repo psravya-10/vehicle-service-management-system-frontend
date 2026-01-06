@@ -16,6 +16,7 @@
     <div *ngFor="let task of filteredTasks" class="card">
         <div class="card-info">
             <strong>{{ task.issueDescription }}</strong>
+            <span>ID: {{ task.id }}</span>
             <span>Vehicle: {{ task.vehicleId }}</span>
             <span>Priority: {{ task.priority }}</span>
             <span *ngIf="task.remarks">Remarks: {{ task.remarks }}</span>

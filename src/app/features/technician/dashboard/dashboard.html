@@ -1,6 +1,13 @@
 <app-navbar title="Technician Dashboard"></app-navbar>
 
-<div class="dashboard-content">
-    <h1>Welcome, Technician!</h1>
-    <p>Your dashboard is under construction.</p>
+<div class="dashboard-container">
+    <div class="tabs">
+        <a routerLink="assigned-tasks" routerLinkActive="active">Assigned Tasks</a>
+        <a routerLink="active-tasks" routerLinkActive="active">Active Tasks</a>
+        <a routerLink="parts-request" routerLinkActive="active">Parts Request</a>
+    </div>
+
+    <div class="tab-content">
+        <router-outlet></router-outlet>
+    </div>
 </div>

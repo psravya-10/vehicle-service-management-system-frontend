@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../core/services/auth';
@@ -15,13 +15,15 @@ export class Register implements OnInit {
   errorMessage: string = '';
   successMessage: string = '';
   isLoading: boolean = false;
-  role: string = 'CUSTOMER';
+
+  @Input() role: string = 'CUSTOMER';
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
   ) {
     this.registerForm = this.formBuilder.group({
       name: ['', [Validators.required]],
@@ -29,6 +31,12 @@ export class Register implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
       phone: ['', [Validators.required]],
       pincode: ['', [Validators.required]]
+    });
+
+    this.registerForm.valueChanges.subscribe(() => {
+      if (this.errorMessage) {
+        this.errorMessage = '';
+      }
     });
   }
 
@@ -53,6 +61,8 @@ export class Register implements OnInit {
 
   onSubmit(): void {
     if (this.registerForm.invalid) {
+      this.registerForm.markAllAsTouched();
+      this.errorMessage = 'Please fill in all fields correctly';
       return;
     }
 
@@ -71,7 +81,8 @@ export class Register implements OnInit {
         },
         error: (error) => {
           this.isLoading = false;
-          this.errorMessage = error.error?.message || 'Registration failed. Please try again.';
+          this.errorMessage = error.error || 'Registration failed. Please try again.';
+          this.cdr.detectChanges();
         }
       });
     } else {
@@ -84,7 +95,8 @@ export class Register implements OnInit {
         },
         error: (error) => {
           this.isLoading = false;
-          this.errorMessage = error.error?.message || 'Registration failed. Please try again.';
+          this.errorMessage = error.error || 'Registration failed. Please try again.';
+          this.cdr.detectChanges();
         }
       });
     }
