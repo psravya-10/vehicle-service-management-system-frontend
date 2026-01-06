@@ -1,0 +1,10 @@
+<div class="modal-overlay" (click)="onOverlayClick($event)">
+    <div class="modal-card">
+        <h3 class="modal-title">{{ title }}</h3>
+        <p class="modal-message">{{ message }}</p>
+        <div class="modal-buttons">
+            <button class="btn btn-cancel" (click)="onCancel()">{{ cancelText }}</button>
+            <button class="btn" [ngClass]="confirmButtonClass" (click)="onConfirm()">{{ confirmText }}</button>
+        </div>
+    </div>
+</div>
