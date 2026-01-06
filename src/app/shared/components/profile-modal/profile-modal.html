@@ -1,0 +1,31 @@
+<div class="modal-overlay" (click)="onOverlayClick($event)">
+    <div class="modal-card">
+        <div class="modal-header">
+            <h3>My Profile</h3>
+            <button class="close-button" (click)="onClose()">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <div class="loading" *ngIf="isLoading">Loading...</div>
+
+            <div class="error" *ngIf="errorMessage && !isLoading">{{ errorMessage }}</div>
+
+            <div class="profile-content" *ngIf="!isLoading && !errorMessage">
+                <div class="info-row">
+                    <span class="label">Name</span>
+                    <span class="value">{{ userName }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Email</span>
+                    <span class="value">{{ userEmail }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Role</span>
+                    <span class="value">{{ userRole }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
