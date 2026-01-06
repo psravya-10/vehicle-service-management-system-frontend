@@ -1,0 +1,120 @@
+<h2>My Invoices</h2>
+
+<div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>
+<div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+<div class="loading" *ngIf="isLoading">Loading invoices...</div>
+
+<div class="card-list" *ngIf="!isLoading">
+    <div *ngFor="let invoice of invoices" class="card">
+        <div class="card-info">
+            <strong>{{ invoice.vehicleRegNumber || 'N/A' }}</strong>
+            <span>Invoice ID: {{ invoice.id }}</span>
+            <span>Service ID: {{ invoice.serviceRequestId }}</span>
+            <span>Date: {{ formatDate(invoice.createdAt) }}</span>
+        </div>
+        <div class="card-right">
+            <span class="amount">₹{{ invoice.totalAmount | number:'1.2-2' }}</span>
+            <span class="status" [ngClass]="invoice.paymentStatus?.toLowerCase()">{{ invoice.paymentStatus }}</span>
+            <button class="btn-secondary" (click)="viewDetails(invoice)">View Details</button>
+        </div>
+    </div>
+
+    <p *ngIf="invoices.length === 0" class="no-data">No invoices found.</p>
+</div>
+
+<!-- Invoice Details Modal -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h3>Invoice Details</h3>
+            <button class="close-btn" (click)="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body" *ngIf="selectedInvoice">
+            <div class="detail-section">
+                <h4>Vehicle & Service Info</h4>
+                <div class="detail-row">
+                    <label>Vehicle Reg. No:</label>
+                    <span>{{ selectedInvoice.vehicleRegNumber || 'N/A' }}</span>
+                </div>
+                <div class="detail-row">
+                    <label>Invoice ID:</label>
+                    <span>{{ selectedInvoice.id }}</span>
+                </div>
+                <div class="detail-row">
+                    <label>Service Request ID:</label>
+                    <span>{{ selectedInvoice.serviceRequestId }}</span>
+                </div>
+                <div class="detail-row">
+                    <label>Vehicle ID:</label>
+                    <span>{{ selectedInvoice.vehicleId }}</span>
+                </div>
+                <div class="detail-row">
+                    <label>Created Date:</label>
+                    <span>{{ formatDate(selectedInvoice.createdAt) }}</span>
+                </div>
+            </div>
+
+            <div class="detail-section">
+                <h4>Charges Breakdown</h4>
+                <div class="detail-row">
+                    <label>Labour Charges:</label>
+                    <span>₹{{ selectedInvoice.labourCharges | number:'1.2-2' }}</span>
+                </div>
+
+                <div class="parts-section" *ngIf="selectedInvoice.partsUsed && selectedInvoice.partsUsed.length > 0">
+                    <label>Parts Used:</label>
+                    <table class="parts-table">
+                        <thead>
+                            <tr>
+                                <th>Part Name</th>
+                                <th>Qty</th>
+                                <th>Unit Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let part of selectedInvoice.partsUsed">
+                                <td>{{ part.partName }}</td>
+                                <td>{{ part.quantity }}</td>
+                                <td>₹{{ part.unitPrice | number:'1.2-2' }}</td>
+                                <td>₹{{ part.totalPrice | number:'1.2-2' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p *ngIf="!selectedInvoice.partsUsed || selectedInvoice.partsUsed.length === 0" class="no-parts">No
+                    parts used</p>
+
+                <div class="detail-row">
+                    <label>Parts Total:</label>
+                    <span>₹{{ selectedInvoice.partsTotal | number:'1.2-2' }}</span>
+                </div>
+                <div class="detail-row total">
+                    <label>Total Amount:</label>
+                    <span>₹{{ selectedInvoice.totalAmount | number:'1.2-2' }}</span>
+                </div>
+            </div>
+
+            <div class="detail-section">
+                <h4>Payment Status</h4>
+                <div class="detail-row">
+                    <label>Status:</label>
+                    <span class="status" [ngClass]="selectedInvoice.paymentStatus?.toLowerCase()">{{
+                        selectedInvoice.paymentStatus }}</span>
+                </div>
+                <div class="detail-row" *ngIf="selectedInvoice.paidAt">
+                    <label>Paid On:</label>
+                    <span>{{ formatDate(selectedInvoice.paidAt) }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-actions" *ngIf="selectedInvoice">
+            <button *ngIf="selectedInvoice.paymentStatus === 'PENDING'" class="btn-primary"
+                (click)="payInvoice(selectedInvoice)">
+                Pay Now
+            </button>
+            <button class="btn-secondary" (click)="closeModal()">Close</button>
+        </div>
+    </div>
+</div>
