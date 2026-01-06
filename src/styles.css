@@ -9,7 +9,14 @@ body {
     line-height: 1.5;
     color: #333;
 }
-/* dashboardf */
+
+h2,
+h3 {
+    margin: 0 0 20px 0;
+    color: #333;
+}
+
+/* Dashboard Layout */
 .dashboard-container {
     padding: 20px 40px;
     padding-top: 80px;
@@ -26,6 +33,7 @@ body {
     z-index: 50;
     background: #f5f5f5;
     padding: 10px 0;
+    flex-wrap: wrap;
 }
 
 .tabs a {
@@ -51,7 +59,64 @@ body {
     min-height: 400px;
 }
 
+/* Section Header */
+.section-header,
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
 
+/* Cards */
+.card-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+@media (max-width: 900px) {
+    .card-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+.card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.card-info strong {
+    color: #333;
+}
+
+.card-info span {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.card-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Status Badges */
 .status {
     padding: 4px 12px;
     border-radius: 4px;
@@ -59,7 +124,8 @@ body {
     font-weight: 500;
 }
 
-.status.requested {
+.status.requested,
+.status.pending {
     background: #fff3e0;
     color: #e65100;
 }
@@ -84,45 +150,15 @@ body {
     color: #666;
 }
 
-.card-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.status.paid {
+    background: #e8f5e9;
+    color: #2e7d32;
 }
 
-.card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background: #f9f9f9;
-    border-radius: 8px;
-    border: 1px solid #eee;
-}
-
-.card-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.card-info strong {
-    color: #333;
-}
-
-.card-info span {
-    color: #666;
-    font-size: 0.9rem;
-}
-
-.no-data {
-    color: #999;
-    text-align: center;
-    padding: 40px;
-}
-
-
-.btn-primary {
+/* Buttons */
+.btn-primary,
+.add-button,
+.submit-button {
     padding: 10px 20px;
     background: #e65100;
     color: white;
@@ -132,7 +168,9 @@ body {
     font-size: 1rem;
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.add-button:hover,
+.submit-button:hover {
     background: #bf360c;
 }
 
@@ -150,12 +188,149 @@ body {
     color: white;
 }
 
+.button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Forms */
+.form-group {
+    margin: 20px 0;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 500;
+}
+
+.form-group select,
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.add-form {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.form-row input,
+.form-row select {
+    flex: 1;
+    min-width: 150px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+/* Filter */
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-group label {
+    color: #666;
+    font-weight: 500;
+}
+
+.filter-group select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+/* Modal Panel */
+.modal-panel {
+    background: #f9f9f9;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    max-width: 500px;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: white;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-header h3 {
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    padding: 20px;
+    border-top: 1px solid #eee;
+    justify-content: flex-end;
+}
+
+/* Messages */
 .success-message {
     background: #e8f5e9;
     color: #2e7d32;
     padding: 10px;
     border-radius: 6px;
-    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .error-message {
@@ -163,5 +338,204 @@ body {
     color: #d32f2f;
     padding: 10px;
     border-radius: 6px;
-    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+/* Utility */
+.no-data {
+    color: #999;
+    text-align: center;
+    padding: 40px;
+    grid-column: 1 / -1;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+.vehicle-type {
+    background: #e65100;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    width: fit-content;
+}
+
+/* Card Stats */
+.card-stats {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.card-status {
+    display: flex;
+    align-items: center;
+}
+
+/* Workload Badge */
+.workload {
+    background: #e3f2fd;
+    color: #1565c0;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Quantity/Threshold */
+.quantity {
+    background: #e3f2fd;
+    color: #1565c0;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.threshold {
+    background: #f5f5f5;
+    color: #666;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+/* Status availability */
+.status.available {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status.busy {
+    background: #fff3e0;
+    color: #e65100;
+}
+
+/* Low Stock Alert */
+.low-stock-alert {
+    background: #fff3e0;
+    color: #e65100;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.card.low-stock {
+    border-left: 4px solid #e65100;
+}
+
+/* Role/Status Badges */
+.role-badge,
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.role-badge.technician {
+    background: #e3f2fd;
+    color: #1565c0;
+}
+
+.role-badge.manager {
+    background: #f3e5f5;
+    color: #7b1fa2;
+}
+
+.status-badge.pending {
+    background: #fff3e0;
+    color: #e65100;
+}
+
+.status-badge.approved {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-badge.rejected {
+    background: #ffebee;
+    color: #c62828;
+}
+
+/* Detail Row (for modals) */
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-row label {
+    font-weight: 500;
+    color: #666;
+}
+
+/* Small Button */
+.btn-small {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+}
+
+/* Approve/Reject Buttons */
+.approve-btn {
+    background: #e65100;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.approve-btn:hover {
+    background: #bf360c;
+}
+
+.reject-btn {
+    background: #ffebee;
+    color: #c62828;
+    padding: 10px 20px;
+    border: 1px solid #c62828;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.reject-btn:hover {
+    background: #c62828;
+    color: white;
+}
+
+/* Filters Container */
+.filters {
+    display: flex;
+    gap: 16px;
+}
+
+/* Header Actions */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Toggle */
+.toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.toggle input {
+    width: 18px;
+    height: 18px;
 }
