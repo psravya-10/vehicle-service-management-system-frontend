@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -15,7 +15,6 @@ export class AuthService {
   registerCustomer(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/register/customer`, data);
   }
-
   registerStaff(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/register/staff`, data);
   }
@@ -55,7 +54,7 @@ export class AuthService {
     try {
       const payload = token.split('.')[1];
       const decoded = JSON.parse(atob(payload));
-      return decoded.sub; 
+      return decoded.sub;
     } catch {
       return null;
     }
@@ -73,5 +72,13 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
     localStorage.removeItem('userId');
+  }
+
+  getUserProfile(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/profile`);
+  }
+
+  changePassword(currentPassword: string, newPassword: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/change-password`, { currentPassword, newPassword });
   }
 }
