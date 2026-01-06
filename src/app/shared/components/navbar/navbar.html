@@ -7,9 +7,19 @@
         </button>
 
         <div class="dropdown" *ngIf="showDropdown">
-            <a>My Profile</a>
+            <a (click)="openProfileModal()">My Profile</a>
             <a>Change Password</a>
-            <a (click)="logout()">Logout</a>
+            <a (click)="openLogoutConfirm()">Logout</a>
         </div>
     </div>
 </nav>
+
+<!-- Profile Modal -->
+<app-profile-modal *ngIf="showProfileModal" (closed)="closeProfileModal()">
+</app-profile-modal>
+
+<!-- Logout Confirmation Modal -->
+<app-confirm-modal *ngIf="showLogoutConfirm" title="Logout" message="Are you sure you want to logout?"
+    confirmText="Yes, Logout" cancelText="Cancel" confirmButtonClass="btn-warning" (confirmed)="confirmLogout()"
+    (cancelled)="cancelLogout()">
+</app-confirm-modal>
