@@ -1,4 +1,9 @@
-<div class="login-container">
+<nav class="auth-navbar">
+    <a class="navbar-brand" routerLink="/">VSMS</a>
+    <a class="nav-home" routerLink="/">Home</a>
+</nav>
+
+<div class="login-page">
     <div class="login-card">
         <h2>Login</h2>
         <p class="subtitle">Sign in to your account</p>
@@ -20,13 +25,13 @@
                 </span>
             </div>
 
-            <div class="error-message" *ngIf="errorMessage">
-                {{ errorMessage }}
-            </div>
-
             <button type="submit" class="submit-button" [disabled]="isLoading">
                 {{ isLoading ? 'Logging in...' : 'Login' }}
             </button>
+
+            <div class="error-message" *ngIf="errorMessage">
+                {{ errorMessage }}
+            </div>
         </form>
     </div>
 </div>
