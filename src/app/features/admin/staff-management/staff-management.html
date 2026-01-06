@@ -1,0 +1,88 @@
+<div class="header">
+    <h2>Staff Management</h2>
+    <div class="filters">
+        <div class="filter-group">
+            <label for="statusFilter">Status:</label>
+            <select id="statusFilter" [(ngModel)]="selectedStatusFilter" (change)="onFilterChange()">
+                <option value="ALL">All</option>
+                <option value="PENDING">Pending</option>
+                <option value="APPROVED">Approved</option>
+                <option value="REJECTED">Rejected</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="roleFilter">Role:</label>
+            <select id="roleFilter" [(ngModel)]="selectedRoleFilter" (change)="onFilterChange()">
+                <option value="ALL">All</option>
+                <option value="TECHNICIAN">Technician</option>
+                <option value="MANAGER">Manager</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="loading" *ngIf="isLoading">Loading...</div>
+
+<div class="card-list" *ngIf="!isLoading">
+    <div *ngFor="let staff of allStaff" class="card" (click)="viewDetails(staff)">
+        <div class="card-info">
+            <strong>{{ staff.name }}</strong>
+            <span>ID: {{ staff.id }}</span>
+            <span>{{ staff.email }}</span>
+            <span>{{ staff.phone }}</span>
+        </div>
+        <div class="card-stats">
+            <span class="role-badge" [ngClass]="staff.role?.toLowerCase()">{{ staff.role }}</span>
+            <span class="status-badge" [ngClass]="getStatusClass(staff.status)">{{ staff.status }}</span>
+        </div>
+    </div>
+    <p *ngIf="allStaff.length === 0" class="no-data">No staff found.</p>
+</div>
+
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h3>Staff Details</h3>
+            <button class="close-btn" (click)="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body" *ngIf="selectedStaff">
+            <div class="detail-row">
+                <label>ID:</label>
+                <span>{{ selectedStaff.id }}</span>
+            </div>
+            <div class="detail-row">
+                <label>Name:</label>
+                <span>{{ selectedStaff.name }}</span>
+            </div>
+            <div class="detail-row">
+                <label>Email:</label>
+                <span>{{ selectedStaff.email }}</span>
+            </div>
+            <div class="detail-row">
+                <label>Phone:</label>
+                <span>{{ selectedStaff.phone }}</span>
+            </div>
+            <div class="detail-row">
+                <label>Pincode:</label>
+                <span>{{ selectedStaff.pincode }}</span>
+            </div>
+            <div class="detail-row">
+                <label>Role:</label>
+                <span class="role-badge" [ngClass]="selectedStaff.role?.toLowerCase()">{{ selectedStaff.role }}</span>
+            </div>
+            <div class="detail-row">
+                <label>Status:</label>
+                <span class="status-badge" [ngClass]="getStatusClass(selectedStaff.status)">{{ selectedStaff.status
+                    }}</span>
+            </div>
+        </div>
+        <div class="modal-actions" *ngIf="selectedStaff">
+            <button *ngIf="selectedStaff.status !== 'APPROVED'" class="approve-btn" (click)="approveStaff()">
+                Approve
+            </button>
+            <button *ngIf="selectedStaff.status !== 'REJECTED'" class="reject-btn" (click)="rejectStaff()">
+                Reject
+            </button>
+        </div>
+    </div>
+</div>
