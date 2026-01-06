@@ -10,6 +10,7 @@ import { ServiceRequestService } from '../services/service-request';
 })
 export class ServiceHistory implements OnInit {
   serviceRequests: any[] = [];
+  errorMessage: string = '';
 
   constructor(
     private serviceRequestService: ServiceRequestService,
@@ -27,7 +28,14 @@ export class ServiceHistory implements OnInit {
           .reverse();
         this.cdr.detectChanges();
       },
-      error: (err) => console.log('Error loading services', err)
+      error: (err) => {
+        if (err.status === 503 || err.status === 500) {
+          this.errorMessage = 'Service Request Service is currently unavailable. Please try again later.';
+        } else {
+          this.errorMessage = err.error?.message || err.error || 'Failed to load service history.';
+        }
+        this.cdr.detectChanges();
+      }
     });
   }
 }

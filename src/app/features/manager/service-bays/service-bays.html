@@ -10,6 +10,8 @@
     </div>
 </div>
 
+<div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+
 <div class="card-list">
     <div *ngFor="let bay of filteredBays" class="card">
         <div class="card-info">

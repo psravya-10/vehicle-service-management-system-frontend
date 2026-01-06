@@ -41,7 +41,12 @@ export class PartsRequest implements OnInit {
                 );
                 this.cdr.detectChanges();
             },
-            error: (err) => console.log('Error loading tasks', err)
+            error: (err) => {
+                if (err.status === 503 || err.status === 500) {
+                    this.errorMessage = 'Service Request Service is currently unavailable. Please try again later.';
+                }
+                this.cdr.detectChanges();
+            }
         });
     }
 
@@ -51,7 +56,12 @@ export class PartsRequest implements OnInit {
                 this.parts = data;
                 this.cdr.detectChanges();
             },
-            error: (err) => console.log('Error loading parts', err)
+            error: (err) => {
+                if (err.status === 503 || err.status === 500) {
+                    this.errorMessage = 'Inventory Service is currently unavailable. Please try again later.';
+                }
+                this.cdr.detectChanges();
+            }
         });
     }
 

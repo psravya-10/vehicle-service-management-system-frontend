@@ -51,7 +51,14 @@ export class ServiceRequests implements OnInit {
                 this.applyFilter();
                 this.cdr.detectChanges();
             },
-            error: (err) => console.log('Error loading requests', err)
+            error: (err) => {
+                if (err.status === 503 || err.status === 500) {
+                    this.errorMessage = 'Service Request Service is currently unavailable. Please try again later.';
+                } else {
+                    this.errorMessage = err.error?.message || err.error || 'Failed to load service requests.';
+                }
+                this.cdr.detectChanges();
+            }
         });
     }
 
@@ -92,7 +99,11 @@ export class ServiceRequests implements OnInit {
                 this.cdr.detectChanges();
             },
             error: (err) => {
-                this.errorMessage = err.error || 'User Service is currently unavailable. Please try again later.';
+                if (err.status === 503 || err.status === 500) {
+                    this.errorMessage = 'User Service is currently unavailable. Please try again later.';
+                } else {
+                    this.errorMessage = err.error?.message || err.error || 'Failed to load technicians.';
+                }
                 this.cdr.detectChanges();
             }
         });
@@ -100,7 +111,12 @@ export class ServiceRequests implements OnInit {
         // Load only available bays
         this.managerService.getAvailableBays().subscribe({
             next: (data) => { this.bays = data; this.cdr.detectChanges(); },
-            error: (err) => console.log('Error loading bays', err)
+            error: (err) => {
+                if (err.status === 503 || err.status === 500) {
+                    this.errorMessage = 'Service Request Service is currently unavailable. Please try again later.';
+                }
+                this.cdr.detectChanges();
+            }
         });
     }
 

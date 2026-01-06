@@ -43,7 +43,11 @@ export class MyInvoices implements OnInit {
                 this.loadVehicleDetails();
             },
             error: (err) => {
-                console.log('Error loading invoices', err);
+                if (err.status === 503 || err.status === 500) {
+                    this.errorMessage = 'Billing Service is currently unavailable. Please try again later.';
+                } else {
+                    this.errorMessage = err.error?.message || err.error || 'Failed to load invoices.';
+                }
                 this.isLoading = false;
                 this.cdr.detectChanges();
             }

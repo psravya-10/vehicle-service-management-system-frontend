@@ -10,6 +10,7 @@
 </div>
 
 <div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>
+<div class="error-message" *ngIf="errorMessage && !restockMode && !thresholdMode && !addMode">{{ errorMessage }}</div>
 
 <div class="low-stock-alert" *ngIf="lowStockParts.length > 0 && !showLowStockOnly">
     {{ lowStockParts.length }} parts are running low on stock!

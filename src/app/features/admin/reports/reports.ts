@@ -23,6 +23,7 @@ export class Reports implements OnInit {
     pendingInvoices: number = 0;
 
     isLoading: boolean = false;
+    errorMessage: string = '';
 
     constructor(
         private adminService: AdminService,
@@ -50,8 +51,11 @@ export class Reports implements OnInit {
                 this.cdr.detectChanges();
             },
             error: (err) => {
-                console.log('Error loading service stats', err);
+                if (err.status === 503 || err.status === 500) {
+                    this.errorMessage = 'Service Request Service is currently unavailable. Please try again later.';
+                }
                 this.isLoading = false;
+                this.cdr.detectChanges();
             }
         });
     }
@@ -71,7 +75,12 @@ export class Reports implements OnInit {
                 this.pendingInvoices = invoices.filter(i => i.paymentStatus === 'PENDING').length;
                 this.cdr.detectChanges();
             },
-            error: (err) => console.log('Error loading revenue', err)
+            error: (err) => {
+                if (err.status === 503 || err.status === 500) {
+                    this.errorMessage = 'Billing Service is currently unavailable. Please try again later.';
+                }
+                this.cdr.detectChanges();
+            }
         });
     }
 

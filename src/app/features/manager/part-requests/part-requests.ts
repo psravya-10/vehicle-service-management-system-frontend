@@ -33,7 +33,14 @@ export class PartRequests implements OnInit {
                 this.applyFilter();
                 this.cdr.detectChanges();
             },
-            error: (err) => console.log('Error loading requests', err)
+            error: (err) => {
+                if (err.status === 503 || err.status === 500) {
+                    this.errorMessage = 'Inventory Service is currently unavailable. Please try again later.';
+                } else {
+                    this.errorMessage = err.error?.message || err.error || 'Failed to load part requests.';
+                }
+                this.cdr.detectChanges();
+            }
         });
     }
 

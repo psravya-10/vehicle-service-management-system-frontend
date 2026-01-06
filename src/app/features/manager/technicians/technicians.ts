@@ -35,7 +35,15 @@ export class Technicians implements OnInit {
                 this.cdr.detectChanges();
             },
             error: (err) => {
-                this.errorMessage = err.error || 'User Service is currently unavailable. Please try again later.';
+                if (err.status === 503 || err.status === 500) {
+                    this.errorMessage = 'User Service is currently unavailable. Please try again later.';
+                } else if (typeof err.error === 'string') {
+                    this.errorMessage = err.error;
+                } else if (err.error?.message) {
+                    this.errorMessage = err.error.message;
+                } else {
+                    this.errorMessage = 'Failed to load technicians. Please try again later.';
+                }
                 this.cdr.detectChanges();
             }
         });

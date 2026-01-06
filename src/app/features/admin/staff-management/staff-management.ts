@@ -17,6 +17,7 @@ export class StaffManagement implements OnInit {
     selectedStaff: StaffMember | null = null;
     showModal: boolean = false;
     isLoading: boolean = false;
+    errorMessage: string = '';
 
     constructor(
         private adminService: AdminService,
@@ -39,8 +40,13 @@ export class StaffManagement implements OnInit {
                 this.cdr.detectChanges();
             },
             error: (err) => {
-                console.log('Error loading staff', err);
+                if (err.status === 503 || err.status === 500) {
+                    this.errorMessage = 'User Service is currently unavailable. Please try again later.';
+                } else {
+                    this.errorMessage = err.error?.message || err.error || 'Failed to load staff.';
+                }
                 this.isLoading = false;
+                this.cdr.detectChanges();
             }
         });
     }

@@ -13,6 +13,7 @@ export class ServiceBays implements OnInit {
     allBays: any[] = [];
     filteredBays: any[] = [];
     selectedFilter: string = 'ALL';
+    errorMessage: string = '';
 
     constructor(
         private managerService: ManagerService,
@@ -30,7 +31,14 @@ export class ServiceBays implements OnInit {
                 this.applyFilter();
                 this.cdr.detectChanges();
             },
-            error: (err) => console.log('Error loading bays', err)
+            error: (err) => {
+                if (err.status === 503 || err.status === 500) {
+                    this.errorMessage = 'Service Request Service is currently unavailable. Please try again later.';
+                } else {
+                    this.errorMessage = err.error?.message || err.error || 'Failed to load service bays.';
+                }
+                this.cdr.detectChanges();
+            }
         });
     }
 

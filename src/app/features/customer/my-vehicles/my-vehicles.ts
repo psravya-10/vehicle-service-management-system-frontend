@@ -54,8 +54,12 @@ export class MyVehicles implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.log('Error loading vehicles:', err);
-        console.log('Error details:', err.message, err.status);
+        if (err.status === 503 || err.status === 500) {
+          this.errorMessage = 'Vehicle Service is currently unavailable. Please try again later.';
+        } else {
+          this.errorMessage = err.error?.message || err.error || 'Failed to load vehicles.';
+        }
+        this.cdr.detectChanges();
       }
     });
   }
@@ -75,7 +79,12 @@ export class MyVehicles implements OnInit {
         this.serviceHistory = data.reverse();
         this.cdr.detectChanges();
       },
-      error: (err) => console.log('Error loading service history', err)
+      error: (err) => {
+        if (err.status === 503 || err.status === 500) {
+          this.errorMessage = 'Service Request Service is currently unavailable. Please try again later.';
+        }
+        this.cdr.detectChanges();
+      }
     });
   }
 

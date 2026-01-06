@@ -43,7 +43,14 @@ export class Inventory implements OnInit {
                 this.allParts = data;
                 this.cdr.detectChanges();
             },
-            error: (err) => console.log('Error loading parts', err)
+            error: (err) => {
+                if (err.status === 503 || err.status === 500) {
+                    this.errorMessage = 'Inventory Service is currently unavailable. Please try again later.';
+                } else {
+                    this.errorMessage = err.error?.message || err.error || 'Failed to load parts.';
+                }
+                this.cdr.detectChanges();
+            }
         });
     }
 
@@ -53,7 +60,12 @@ export class Inventory implements OnInit {
                 this.lowStockParts = data;
                 this.cdr.detectChanges();
             },
-            error: (err) => console.log('Error loading low stock', err)
+            error: (err) => {
+                if (err.status === 503 || err.status === 500) {
+                    this.errorMessage = 'Inventory Service is currently unavailable. Please try again later.';
+                }
+                this.cdr.detectChanges();
+            }
         });
     }
 

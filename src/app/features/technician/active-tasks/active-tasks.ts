@@ -35,7 +35,14 @@ export class ActiveTasks implements OnInit {
                 ).reverse();
                 this.cdr.detectChanges();
             },
-            error: (err) => console.log('Error loading tasks', err)
+            error: (err) => {
+                if (err.status === 503 || err.status === 500) {
+                    this.errorMessage = 'Service Request Service is currently unavailable. Please try again later.';
+                } else {
+                    this.errorMessage = err.error?.message || err.error || 'Failed to load tasks.';
+                }
+                this.cdr.detectChanges();
+            }
         });
     }
 

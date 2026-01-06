@@ -4,6 +4,8 @@
 
 <div class="loading" *ngIf="isLoading">Loading reports...</div>
 
+<div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+
 <div class="reports-grid" *ngIf="!isLoading">
     <!-- Service Requests Overview -->
     <div class="report-card">
