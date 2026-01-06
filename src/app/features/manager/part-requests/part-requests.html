@@ -1,0 +1,31 @@
+<div class="header">
+    <h2>Part Requests</h2>
+    <div class="filter-group">
+        <label for="filter">Filter:</label>
+        <select id="filter" [(ngModel)]="selectedFilter" (change)="onFilterChange()">
+            <option value="REQUESTED">Pending</option>
+            <option value="APPROVED">Approved</option>
+            <option value="REJECTED">Rejected</option>
+            <option value="ALL">All</option>
+        </select>
+    </div>
+</div>
+
+<div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>
+<div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+<div class="card-list">
+    <div *ngFor="let req of filteredRequests" class="card">
+        <div class="card-info">
+            <strong>Part ID: {{ req.partId }}</strong>
+            <span>Service Request: {{ req.serviceRequestId }}</span>
+            <span>Technician: {{ req.technicianId }}</span>
+            <span>Quantity: {{ req.quantity }}</span>
+        </div>
+        <div class="card-actions">
+            <span class="status" [ngClass]="req.status?.toLowerCase()">{{ req.status }}</span>
+            <button class="btn-primary" *ngIf="req.status === 'REQUESTED'" (click)="approve(req.id)">Approve</button>
+        </div>
+    </div>
+    <p *ngIf="filteredRequests.length === 0" class="no-data">No part requests found.</p>
+</div>
