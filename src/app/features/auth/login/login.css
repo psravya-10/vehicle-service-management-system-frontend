@@ -1,19 +1,52 @@
-.login-container {
-    min-height: 100vh;
+.auth-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 16px 50px;
     display: flex;
     align-items: center;
+    gap: 35px;
+    border-bottom: 1px solid #e0e0e0;
+    z-index: 100;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #e65100;
+    text-decoration: none;
+}
+
+.nav-home {
+    color: #444;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.nav-home:hover {
+    color: #e65100;
+}
+
+/* Login Page Layout */
+.login-page {
+    min-height: 100vh;
+    display: flex;
     justify-content: center;
-    background: #f5f5f5;
-    padding: 20px;
+    align-items: center;
+    background: #fff8f0;
+    padding-top: 70px;
 }
 
 .login-card {
     background: white;
     padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
     width: 100%;
     max-width: 400px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .login-card h2 {
@@ -64,7 +97,7 @@
     color: #d32f2f;
     padding: 10px;
     border-radius: 6px;
-    margin-bottom: 20px;
+    margin-top: 20px;
     text-align: center;
 }
 
@@ -87,19 +120,4 @@
 .submit-button:disabled {
     background: #ccc;
     cursor: not-allowed;
-}
-
-.register-link {
-    text-align: center;
-    margin-top: 20px;
-    color: #666;
-}
-
-.register-link a {
-    color: #e65100;
-    text-decoration: none;
-}
-
-.register-link a:hover {
-    text-decoration: underline;
 }
