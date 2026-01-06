@@ -14,6 +14,7 @@ export class Technicians implements OnInit {
     filteredTechnicians: any[] = [];
     workload: { [key: string]: number } = {};
     selectedFilter: string = 'ALL';
+    errorMessage: string = '';
 
     constructor(
         private managerService: ManagerService,
@@ -26,13 +27,17 @@ export class Technicians implements OnInit {
     }
 
     loadTechnicians(): void {
+        this.errorMessage = '';
         this.managerService.getAllTechnicians().subscribe({
             next: (data) => {
                 this.allTechnicians = data;
                 this.applyFilter();
                 this.cdr.detectChanges();
             },
-            error: (err) => console.log('Error loading technicians', err)
+            error: (err) => {
+                this.errorMessage = err.error || 'User Service is currently unavailable. Please try again later.';
+                this.cdr.detectChanges();
+            }
         });
     }
 

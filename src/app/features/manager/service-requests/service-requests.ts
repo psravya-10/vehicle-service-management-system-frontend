@@ -91,7 +91,10 @@ export class ServiceRequests implements OnInit {
                 })).sort((a: TechnicianWithWorkload, b: TechnicianWithWorkload) => a.workload - b.workload);
                 this.cdr.detectChanges();
             },
-            error: (err) => console.log('Error loading technicians', err)
+            error: (err) => {
+                this.errorMessage = err.error || 'User Service is currently unavailable. Please try again later.';
+                this.cdr.detectChanges();
+            }
         });
 
         // Load only available bays

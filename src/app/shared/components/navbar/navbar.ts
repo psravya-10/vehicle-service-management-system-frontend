@@ -4,10 +4,11 @@ import { AuthService } from '../../../core/services/auth';
 import { CommonModule } from '@angular/common';
 import { ConfirmModal } from '../confirm-modal/confirm-modal';
 import { ProfileModal } from '../profile-modal/profile-modal';
+import { ChangePasswordModal } from '../change-password-modal/change-password-modal';
 
 @Component({
   selector: 'app-navbar',
-  imports: [CommonModule, ConfirmModal, ProfileModal],
+  imports: [CommonModule, ConfirmModal, ProfileModal, ChangePasswordModal],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css'
 })
@@ -15,6 +16,7 @@ export class Navbar {
   @Input() title: string = 'Dashboard';
   showDropdown: boolean = false;
   showProfileModal: boolean = false;
+  showChangePasswordModal: boolean = false;
   showLogoutConfirm: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) { }
@@ -30,6 +32,21 @@ export class Navbar {
 
   closeProfileModal(): void {
     this.showProfileModal = false;
+  }
+
+  openChangePasswordModal(): void {
+    this.showDropdown = false;
+    this.showChangePasswordModal = true;
+  }
+
+  closeChangePasswordModal(): void {
+    this.showChangePasswordModal = false;
+  }
+
+  onPasswordChanged(): void {
+    this.showChangePasswordModal = false;
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
   openLogoutConfirm(): void {

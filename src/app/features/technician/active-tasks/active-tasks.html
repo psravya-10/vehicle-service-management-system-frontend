@@ -7,6 +7,7 @@
     <div *ngFor="let task of tasks" class="card" (click)="selectTask(task)">
         <div class="card-info">
             <strong>{{ task.issueDescription }}</strong>
+            <span>ID: {{ task.id }}</span>
             <span>Vehicle: {{ task.vehicleId }}</span>
             <span>Priority: {{ task.priority }}</span>
         </div>
@@ -26,7 +27,6 @@
     <div class="form-group">
         <label for="status">Status</label>
         <select id="status" [(ngModel)]="selectedStatus">
-            <option value="ASSIGNED">ASSIGNED</option>
             <option value="IN_PROGRESS">IN_PROGRESS</option>
             <option value="COMPLETED">COMPLETED</option>
         </select>
