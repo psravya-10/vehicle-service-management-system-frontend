@@ -1,0 +1,24 @@
+<div class="header">
+    <h2>Service Bays</h2>
+    <div class="filter-group">
+        <label for="filter">Filter:</label>
+        <select id="filter" [(ngModel)]="selectedFilter" (change)="onFilterChange()">
+            <option value="ALL">All</option>
+            <option value="AVAILABLE">Available</option>
+            <option value="BUSY">Busy</option>
+        </select>
+    </div>
+</div>
+
+<div class="card-list">
+    <div *ngFor="let bay of filteredBays" class="card">
+        <div class="card-info">
+            <strong>{{ bay.bayCode || 'Bay ' + bay.id }}</strong>
+            <span>ID: {{ bay.id }}</span>
+        </div>
+        <div class="card-status">
+            <span class="status" [ngClass]="bay.status?.toLowerCase()">{{ bay.status }}</span>
+        </div>
+    </div>
+    <p *ngIf="filteredBays.length === 0" class="no-data">No service bays found.</p>
+</div>
