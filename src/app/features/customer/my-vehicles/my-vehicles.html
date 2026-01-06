@@ -1,0 +1,56 @@
+<div class="section-header">
+    <h2 *ngIf="!showHistory">My Vehicles</h2>
+    <h2 *ngIf="showHistory">Service History - {{ selectedVehicle?.registrationNumber }}</h2>
+    <button *ngIf="!showHistory && !showAddForm" class="add-button" (click)="toggleAddForm()">+ Add Vehicle</button>
+    <button *ngIf="showAddForm" class="add-button" (click)="toggleAddForm()">Cancel</button>
+    <button *ngIf="showHistory" class="add-button" (click)="backToList()">← Back</button>
+</div>
+
+<!-- Add Vehicle Form -->
+<div *ngIf="showAddForm" class="add-form">
+    <div class="form-row">
+        <input type="text" placeholder="Registration Number (KA01AB1234)" [(ngModel)]="newVehicle.registrationNumber">
+        <input type="text" placeholder="Brand" [(ngModel)]="newVehicle.brand">
+    </div>
+    <div class="form-row">
+        <input type="text" placeholder="Model" [(ngModel)]="newVehicle.model">
+        <select [(ngModel)]="newVehicle.vehicleType">
+            <option value="CAR">Car</option>
+            <option value="BIKE">Bike</option>
+            <option value="TRUCK">Truck</option>
+            <option value="BUS">Bus</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <input type="number" placeholder="Manufacture Year" [(ngModel)]="newVehicle.manufactureYear">
+        <button class="submit-button" (click)="addVehicle()">Add Vehicle</button>
+    </div>
+    <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+</div>
+
+<!-- Vehicle List -->
+<div *ngIf="!showAddForm && !showHistory" class="card-list">
+    <div *ngFor="let vehicle of vehicles" class="card">
+        <div class="card-info">
+            <strong>{{ vehicle.registrationNumber }}</strong>
+            <span>{{ vehicle.brand }} {{ vehicle.model }}</span>
+            <span class="vehicle-type">{{ vehicle.vehicleType }}</span>
+        </div>
+        <button class="btn-secondary" (click)="viewHistory(vehicle)">View History</button>
+    </div>
+
+    <p *ngIf="vehicles.length === 0" class="no-data">No vehicles found. Add your first vehicle!</p>
+</div>
+
+<!-- Service History View -->
+<div *ngIf="showHistory" class="card-list">
+    <div *ngFor="let request of serviceHistory" class="card">
+        <div class="card-info">
+            <strong>{{ request.issueDescription }}</strong>
+            <span>Priority: {{ request.priority }}</span>
+        </div>
+        <span class="status" [ngClass]="request.status?.toLowerCase()">{{ request.status }}</span>
+    </div>
+
+    <p *ngIf="serviceHistory.length === 0" class="no-data">No service history for this vehicle.</p>
+</div>

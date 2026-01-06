@@ -1,0 +1,14 @@
+<h2>My Services</h2>
+
+<div class="card-list">
+    <div *ngFor="let request of serviceRequests" class="card">
+        <div class="card-info">
+            <strong>{{ request.issueDescription }}</strong>
+            <span>Vehicle ID: {{ request.vehicleId }}</span>
+            <span>Priority: {{ request.priority }}</span>
+        </div>
+        <span class="status" [ngClass]="request.status?.toLowerCase()">{{ request.status }}</span>
+    </div>
+
+    <p *ngIf="serviceRequests.length === 0" class="no-data">No services found.</p>
+</div>
