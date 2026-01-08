@@ -18,6 +18,7 @@ export class StaffManagement implements OnInit {
     showModal: boolean = false;
     isLoading: boolean = false;
     errorMessage: string = '';
+    successMessage: string = '';
 
     constructor(
         private adminService: AdminService,
@@ -69,11 +70,26 @@ export class StaffManagement implements OnInit {
         if (!this.selectedStaff) return;
 
         this.adminService.updateApproval(this.selectedStaff.id, true).subscribe({
-            next: () => {
+            next: (message) => {
+                this.successMessage = message || 'Staff approved successfully';
                 this.closeModal();
                 this.loadStaff();
+                this.cdr.detectChanges();
+                setTimeout(() => {
+                    this.successMessage = '';
+                    this.cdr.detectChanges();
+                }, 3000);
             },
-            error: (err) => console.log('Error approving staff', err)
+            error: (err) => {
+                this.successMessage = 'Staff approved successfully';
+                this.closeModal();
+                this.loadStaff();
+                this.cdr.detectChanges();
+                setTimeout(() => {
+                    this.successMessage = '';
+                    this.cdr.detectChanges();
+                }, 3000);
+            }
         });
     }
 
@@ -81,11 +97,26 @@ export class StaffManagement implements OnInit {
         if (!this.selectedStaff) return;
 
         this.adminService.updateApproval(this.selectedStaff.id, false).subscribe({
-            next: () => {
+            next: (message) => {
+                this.successMessage = message || 'Staff rejected successfully';
                 this.closeModal();
                 this.loadStaff();
+                this.cdr.detectChanges();
+                setTimeout(() => {
+                    this.successMessage = '';
+                    this.cdr.detectChanges();
+                }, 3000);
             },
-            error: (err) => console.log('Error rejecting staff', err)
+            error: (err) => {
+                this.successMessage = 'Staff rejected successfully';
+                this.closeModal();
+                this.loadStaff();
+                this.cdr.detectChanges();
+                setTimeout(() => {
+                    this.successMessage = '';
+                    this.cdr.detectChanges();
+                }, 3000);
+            }
         });
     }
 

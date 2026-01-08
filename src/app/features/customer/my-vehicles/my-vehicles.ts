@@ -104,7 +104,15 @@ export class MyVehicles implements OnInit {
         this.resetForm();
       },
       error: (err) => {
-        this.errorMessage = err.error?.message || 'This registration number already exists';
+
+        if (err.error && typeof err.error === 'object' && !err.error.message) {
+
+          const errorMessages = Object.values(err.error) as string[];
+          this.errorMessage = errorMessages[0] || 'Please fill in all required fields';
+        } else {
+          // Handle business logic errors (like duplicate registration)
+          this.errorMessage = err.error?.message || err.error || 'Failed to add vehicle';
+        }
         this.cdr.detectChanges();
         setTimeout(() => {
           this.errorMessage = '';

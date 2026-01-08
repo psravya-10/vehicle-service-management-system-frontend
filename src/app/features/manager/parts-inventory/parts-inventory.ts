@@ -105,6 +105,11 @@ export class PartsInventory implements OnInit {
                 this.cancel();
                 this.loadParts();
                 this.loadLowStock();
+                this.cdr.detectChanges();
+                setTimeout(() => {
+                    this.successMessage = '';
+                    this.cdr.detectChanges();
+                }, 3000);
             },
             error: (err) => {
                 this.errorMessage = err.error?.message || 'Failed to restock';
@@ -125,6 +130,11 @@ export class PartsInventory implements OnInit {
                 this.cancel();
                 this.loadParts();
                 this.loadLowStock();
+                this.cdr.detectChanges();
+                setTimeout(() => {
+                    this.successMessage = '';
+                    this.cdr.detectChanges();
+                }, 3000);
             },
             error: (err) => {
                 this.errorMessage = err.error?.message || 'Failed to update threshold';
@@ -149,6 +159,11 @@ export class PartsInventory implements OnInit {
                 this.successMessage = 'Part added successfully';
                 this.cancel();
                 this.loadParts();
+                this.cdr.detectChanges();
+                setTimeout(() => {
+                    this.successMessage = '';
+                    this.cdr.detectChanges();
+                }, 3000);
             },
             error: (err) => {
                 this.errorMessage = err.error?.message || 'Failed to add part';

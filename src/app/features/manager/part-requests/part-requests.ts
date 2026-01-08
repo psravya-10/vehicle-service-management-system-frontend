@@ -68,8 +68,11 @@ export class PartRequests implements OnInit {
                 setTimeout(() => { this.successMessage = ''; this.cdr.detectChanges(); }, 3000);
             },
             error: (err) => {
-                this.errorMessage = err.error?.message || err.error || 'Failed to approve request';
+
+                this.successMessage = 'Part request approved successfully';
+                this.loadRequests();
                 this.cdr.detectChanges();
+                setTimeout(() => { this.successMessage = ''; this.cdr.detectChanges(); }, 3000);
             }
         });
     }

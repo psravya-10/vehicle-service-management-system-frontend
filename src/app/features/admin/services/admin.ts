@@ -44,11 +44,11 @@ export class AdminService {
         return this.http.get<StaffMember[]>(`${this.baseUrl}/admin/users`);
     }
 
-    updateApproval(userId: string, approved: boolean): Observable<void> {
-        return this.http.put<void>(`${this.baseUrl}/admin/users/${userId}/approval?approved=${approved}`, {});
+    updateApproval(userId: string, approved: boolean): Observable<string> {
+        return this.http.put(`${this.baseUrl}/admin/users/${userId}/approval?approved=${approved}`, {}, { responseType: 'text' });
     }
 
-   
+
     getUserById(userId: string): Observable<StaffMember> {
         return this.http.get<StaffMember>(`${this.baseUrl}/customer/${userId}`);
     }

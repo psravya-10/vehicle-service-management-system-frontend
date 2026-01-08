@@ -81,7 +81,12 @@ export class Register implements OnInit {
         },
         error: (error) => {
           this.isLoading = false;
-          this.errorMessage = error.error || 'Registration failed. Please try again.';
+          if (error.error && typeof error.error === 'object') {
+            const errorMessages = Object.values(error.error) as string[];
+            this.errorMessage = errorMessages[0] || 'Registration failed. Please try again.';
+          } else {
+            this.errorMessage = error.error?.message || error.error || 'Registration failed. Please try again.';
+          }
           this.cdr.detectChanges();
         }
       });
@@ -95,7 +100,12 @@ export class Register implements OnInit {
         },
         error: (error) => {
           this.isLoading = false;
-          this.errorMessage = error.error || 'Registration failed. Please try again.';
+          if (error.error && typeof error.error === 'object') {
+            const errorMessages = Object.values(error.error) as string[];
+            this.errorMessage = errorMessages[0] || 'Registration failed. Please try again.';
+          } else {
+            this.errorMessage = error.error?.message || error.error || 'Registration failed. Please try again.';
+          }
           this.cdr.detectChanges();
         }
       });

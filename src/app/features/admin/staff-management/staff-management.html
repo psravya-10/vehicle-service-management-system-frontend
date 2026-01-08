@@ -24,6 +24,7 @@
 <div class="loading" *ngIf="isLoading">Loading...</div>
 
 <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+<div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>
 
 <div class="card-list" *ngIf="!isLoading">
     <div *ngFor="let staff of allStaff" class="card" (click)="viewDetails(staff)">

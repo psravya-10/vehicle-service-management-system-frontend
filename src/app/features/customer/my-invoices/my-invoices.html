@@ -14,7 +14,7 @@
             <span>Date: {{ formatDate(invoice.createdAt) }}</span>
         </div>
         <div class="card-right">
-            <span class="amount">₹{{ invoice.totalAmount | number:'1.2-2' }}</span>
+            <span class="amount">₹{{ invoice.totalAmount | number:'1.2-4' }}</span>
             <span class="status" [ngClass]="invoice.paymentStatus?.toLowerCase()">{{ invoice.paymentStatus }}</span>
             <button class="btn-secondary" (click)="viewDetails(invoice)">View Details</button>
         </div>
@@ -59,7 +59,7 @@
                 <h4>Charges Breakdown</h4>
                 <div class="detail-row">
                     <label>Labour Charges:</label>
-                    <span>₹{{ selectedInvoice.labourCharges | number:'1.2-2' }}</span>
+                    <span>₹{{ selectedInvoice.labourCharges | number:'1.2-4' }}</span>
                 </div>
 
                 <div class="parts-section" *ngIf="selectedInvoice.partsUsed && selectedInvoice.partsUsed.length > 0">
@@ -77,8 +77,8 @@
                             <tr *ngFor="let part of selectedInvoice.partsUsed">
                                 <td>{{ part.partName }}</td>
                                 <td>{{ part.quantity }}</td>
-                                <td>₹{{ part.unitPrice | number:'1.2-2' }}</td>
-                                <td>₹{{ part.totalPrice | number:'1.2-2' }}</td>
+                                <td>₹{{ part.unitPrice | number:'1.2-4' }}</td>
+                                <td>₹{{ part.totalPrice | number:'1.2-4' }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -88,11 +88,11 @@
 
                 <div class="detail-row">
                     <label>Parts Total:</label>
-                    <span>₹{{ selectedInvoice.partsTotal | number:'1.2-2' }}</span>
+                    <span>₹{{ selectedInvoice.partsTotal | number:'1.2-4' }}</span>
                 </div>
                 <div class="detail-row total">
                     <label>Total Amount:</label>
-                    <span>₹{{ selectedInvoice.totalAmount | number:'1.2-2' }}</span>
+                    <span>₹{{ selectedInvoice.totalAmount | number:'1.2-4' }}</span>
                 </div>
             </div>
 
